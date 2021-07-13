@@ -3,7 +3,7 @@
 ## For the back-end:
 Database: MySQL
 
-Implemented the above:
+Implemented the requests:
 
 - Return the population of a given region
 ```
