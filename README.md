@@ -1,11 +1,11 @@
 # Greek-Vaccination-Monitor
 
 ## For the back-end:
-- Made with Spring boot
+- Made with Spring boot (may need to change password in file ``` application.properties ```)
 - Database: MySQL
 - Directory: ```vaccsmonitorsql```
 
-### Requests implemented
+#### Requests implemented
 
 1. Return the population of a given region
 ```
@@ -22,6 +22,12 @@ GET: http://localhost:8080/region/find/dates/{id}
 3. Return the percentage of the population that has been vaccinated per region, for all regions
 ```
 GET: http://localhost:8080/region/all
+```
+
+#### Data
+Given .csv files are in the directory:
+```
+.\vaccsmonitorsql\data
 ```
 
 ## For the front-end:
