@@ -19,15 +19,11 @@ public class RegionService {
     }
 
     public Region addRegion(Region region) {
-        //region.setId(UUID.randomUUID().toString());
         return regionRepo.save(region);
     }
-
     public List<Region> findAllRegions() {
         return regionRepo.findAll();
     }
-
-    //public Region update
 
     public Region findRegionById(Long id) {
         return regionRepo.findRegionById(id)

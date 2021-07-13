@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -24,19 +25,15 @@ class LoadDatabase {
             log.info("Preloading data");
             Map<Long, Region> regionMap = new HashMap<Long, Region>();
 
-            String fileNameRegions = "C:\\Users\\nikol\\Desktop\\vaccsmonitorsql\\data\\populationRegionalUnits.csv";
+            String fileNameRegions = "data\\populationRegionalUnits.csv";
+            File f = new File(fileNameRegions);
+            String absolute_path = f.getAbsolutePath();
 
-            try (CSVReader reader = new CSVReader(new FileReader(fileNameRegions))) {
+            try (CSVReader reader = new CSVReader(new FileReader(absolute_path))) {
                 List<String[]> r = reader.readAll();
-                r.forEach(x -> System.out.println(Arrays.toString(x)));
                 r.remove(0);
 
                 for (String[] x: r) {
-
-                    for(String xx: x) {
-                        System.out.println(xx);
-                    }
-
                     Region newRegion = new Region(Long.parseLong(x[0]),x[1],Integer.parseInt(x[2].replace(".","")));
                     regionMap.put(Long.parseLong(x[0]), newRegion);
                 }
@@ -47,42 +44,34 @@ class LoadDatabase {
 
             List<DayVacs> dataArray = new ArrayList<DayVacs>();
 
-            String fileNameDayVacs = "C:\\Users\\nikol\\Desktop\\vaccsmonitorsql\\data\\covidStats.csv";
+            String fileNameDayVacs = "data\\covidStats.csv";
+            f = new File(fileNameDayVacs);
+            absolute_path = f.getAbsolutePath();
 
-            try (CSVReader reader = new CSVReader(new FileReader(fileNameDayVacs))) {
+            try (CSVReader reader = new CSVReader(new FileReader(absolute_path))) {
                 List<String[]> r = reader.readAll();
-                r.forEach(x -> System.out.println(Arrays.toString(x)));
                 r.remove(0);
 
                 for (String[] x: r) {
-
-                    for(String xx: x) {
-                        System.out.println(xx);
-                    }
-
                     Region region = regionMap.get(Long.parseLong(x[1]));
                     region.setTotalVaccination(region.getTotalVaccination()+Integer.parseInt(x[2]));
                     DayVacs newEntity = new DayVacs(x[6],region,Integer.parseInt(x[10]));
                     dataArray.add(newEntity);
                 }
 
-
             } catch (IOException | CsvException e) {
                 throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
             }
 
-
             for(Region r: regionMap.values()){
                 repository.save(r);
             }
-            log.info("Regions loaded");
+            log.info("Regions saved");
 
             for(DayVacs d: dataArray){
                 DVrepository.save(d);
             }
-            log.info("Days of each vaccination per region loaded");
-
-
+            log.info("Days of each vaccination per region saved");
         };
     }
 }

@@ -23,9 +23,4 @@ public class DayVacsService {
     public DayVacs addDayVacs(DayVacs dayVacs) {
         return regionRepo.save(dayVacs);
     }
-
-    //public List<DayVacs> getDayVacsByRegion(Long id){
-        //return regionRepo.getDayVacsByRegion(id);
-    //}
-
 }

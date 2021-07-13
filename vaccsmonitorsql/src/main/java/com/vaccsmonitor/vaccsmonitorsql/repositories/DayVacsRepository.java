@@ -11,6 +11,4 @@ import java.util.Optional;
 
 public interface DayVacsRepository extends JpaRepository<DayVacs, Long> {
     Optional<DayVacs> findDayVacsById(Long id);
-
-
 }

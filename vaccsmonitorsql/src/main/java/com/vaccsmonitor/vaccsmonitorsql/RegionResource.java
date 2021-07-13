@@ -1,6 +1,5 @@
 package com.vaccsmonitor.vaccsmonitorsql;
 
-//import com.vaccsmonitor.vaccsmonitorsql.model.DayVacs;
 import com.vaccsmonitor.vaccsmonitorsql.model.DayVacs;
 import com.vaccsmonitor.vaccsmonitorsql.model.Region;
 import com.vaccsmonitor.vaccsmonitorsql.service.DayVacsService;
@@ -19,9 +18,6 @@ public class RegionResource {
 
     private final RegionService regionService;
 
-    @Autowired
-    DayVacsService dayVacsService;
-
     public RegionResource(RegionService regionService) {
         this.regionService = regionService;
     }
@@ -37,7 +33,6 @@ public class RegionResource {
         Region region = regionService.findRegionById(id);
         return new ResponseEntity<>(region, HttpStatus.OK);
     }
-
 
     @GetMapping("/find/population/{id}")
     public ResponseEntity<Integer>  getRegionPopulationById(@PathVariable("id") Long id) {
