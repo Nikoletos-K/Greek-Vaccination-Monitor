@@ -5,7 +5,7 @@
 - Database: MySQL
 - Directory: ```vaccsmonitorsql```
 
-Implemented the requests:
+### Requests implemented
 
 1. Return the population of a given region
 ```
